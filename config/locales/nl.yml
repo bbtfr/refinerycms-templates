@@ -1,0 +1,28 @@
+nl:
+  refinery:
+    plugins:
+      templates:
+        title: Templates
+    templates:
+      admin:
+        templates:
+          actions:
+            create_new: Maak een nieuwe Template
+            reorder: Wijzig de volgorde van de Templates
+            reorder_done: Klaar met het wijzingen van de volgorde van de Templates
+          records:
+            title: Templates
+            sorry_no_results: Helaas! Er zijn geen resultaten gevonden.
+            no_items_yet: Er zijn nog geen Templates. Druk op 'Maak een nieuwe Template' om de eerste aan te maken.
+          template:
+            view_live_html: Bekijk deze template op de website <br/><em>(opent een nieuw venster)</em>
+            edit: Bewerk deze template
+            delete: Verwijder deze template voor eeuwig
+      templates:
+        show:
+          other: Andere Templates
+  activerecord:
+    attributes:
+      'refinery/templates/template':
+        name: Name
+        body: Body

@@ -1,0 +1,52 @@
+<div id='dialog_list'>
+  <%= render '/refinery/admin/search', :url => refinery.insert_templates_admin_templates_path %>
+  <div id='records'>
+    <%= render 'templates' %>
+  </div>
+  <%= render '/refinery/admin/form_actions', :f => nil,
+             :cancel_url => '',
+             :hide_delete => true,
+             :submit_button_text => t('.insert'),
+             :cancel_button_text => t('cancel', :scope => 'refinery.admin.form_actions'),
+             :cancel_title => nil %>
+</div>
+
+<div id='dialog_preview'></div>
+
+<script type="text/javascript">
+    $(function(){
+        function append_to_wym(template) {
+          var wym = parent.wym
+          wym.html(template);
+          wym.update();
+          close_dialog();
+          wym.close_dialog();
+        }
+
+        $('#submit_button').on('click', function(){
+            template_selected = $('#dialog_preview').html();
+            <% if @callback.present? %>
+              self.parent.<%= @callback %>(template_selected);
+            <% end %>
+            append_to_wym(template_selected);
+        })
+    });
+
+    $(function(){
+        $templates = $('#sortable_list li');
+        $templates.attr('style', 'cursor:pointer');
+        $templates.on('click', function(){
+            $templates.removeClass('selected');
+            $(this).addClass('selected');
+            var id = $(this).attr('id');
+            $.get('<%= refinery.dialog_preview_templates_admin_templates_path %>', {'id' : id}, null, 'script')
+        })
+    })
+</script>
+
+<style>
+  #dialog_preview img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

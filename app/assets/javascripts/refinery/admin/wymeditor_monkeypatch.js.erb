@@ -1,0 +1,19 @@
+<%#encoding: UTF-8 %>
+
+wymeditor_boot_options.toolsItems.push({'name': 'Template', 'title': 'Use_Template', 'css': 'wym_tools_use_template'});
+
+<% locales = %w(en es sk pt-BR zh-CN)%>
+<% locales.each do |locale| %>
+  if (WYMeditor.STRINGS['<%=locale%>']) WYMeditor.STRINGS['<%=locale%>']['Template'] = WYMeditor.STRINGS['<%=locale%>']['Use_Template'] = '<%= I18n.t(:use_template, :scope => :wym_tools, :locale => locale) %>';
+<% end %>
+
+onCloseDialog = function(){
+   $('iframe#dialog_iframe').attr('src', '');
+};
+
+WYMeditor.editor.prototype.exec_without_template = WYMeditor.editor.prototype.exec;
+WYMeditor.editor.prototype.exec = function(cmd) {
+  if (cmd == 'Template') {
+    this.dialog('Template');
+  } else this.exec_without_template(cmd);
+}
